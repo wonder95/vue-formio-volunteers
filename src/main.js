@@ -7,6 +7,9 @@ import Formio from 'formiojs'
 Vue.use(VueI18n);
 
 import {messages} from 'vue-bootstrap-calendar';
+import 'formiojs/dist/formio.form.min.css'
+import 'formiojs/dist/formio.full.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 window.i18n = new VueI18n({
   locale: 'en',
