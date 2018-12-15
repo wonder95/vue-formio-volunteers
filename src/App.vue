@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-     <nav class="navbar is-fixed-top">
+    <nav class="navbar">
       <div class="navbar-brand">
         <a class="navbar-item">CFD Volunteers</a>
         <button class="button navbar-burger">
@@ -22,41 +22,39 @@
 
 <script>
 export default {
-  name: 'app'
-}
+  name: "app"
+};
 </script>
 
 <style>
-  .navbar {
-    background-color: #383838;
-  }
-  a:hover {
-    color: gray;
-  }
-    
-  .navbar-brand a {
-    color: #fff;
-    font-weight: bold;
-  }
+.navbar {
+  background-color: #383838;
+}
+a:hover {
+  color: gray;
+}
 
+.navbar-brand {
+  color: #fff;
+  font-weight: bold;
+}
 
-  .navbar-end a.r-item {
-    color:#C1C1C1;
-    padding: 0.5rem 1.75rem;
-  }
+.navbar-end a.r-item {
+  color: #c1c1c1;
+  padding: 0.5rem 1.75rem;
+}
 
 /*+mobile
     color: gray
     &:hover
       background-color: #F1F1F1 */
 
-  .navbar-burger span {
-    background-color: #C1C1C1;
-  }
+.navbar-burger span {
+  background-color: #c1c1c1;
+}
 
-  .icon {
-    color: #fff;
-    margin-left: 20px;
-  }
-
+.icon {
+  color: #fff;
+  margin-left: 20px;
+}
 </style>
