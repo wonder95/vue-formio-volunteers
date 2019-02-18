@@ -1,7 +1,14 @@
 <template>
   <div class="section">
     <div class="container">
-      <Calendar :first-day="1" :all-events="events" :customDayContent="1"></Calendar>
+      <Calendar
+        :first-day="0"
+        :all-events="events"
+        :displayWeekNumber="true"
+        :customDayContent="true"
+      >
+        <p slot="customDay">Custom slot content</p>
+      </Calendar>
     </div>
   </div>
 </template>
@@ -9,6 +16,9 @@
 <script>
 import { Calendar } from 'vue-bootstrap4-calendar'
 import { i18n } from 'vue-i18n'
+import api from '@/api'
+import {CHANGE_MONTH} from '../actions'
+import moment from 'moment'
 
 export default {
   name: 'DutyShifts',
@@ -20,54 +30,36 @@ export default {
   components: {
     Calendar
   },
+  methods: {
+    getMonthShifts (newMonth) {
+      const self = this;
+      // Clear out any events from last time we were here.
+      self.events = [];
+      const startDate = newMonth.format();
+      const endDate = newMonth.endOf('month').format();
+      // Query the api.
+      api.getShifts(startDate, endDate).then(function(response) {
+        const events = [];
+        response.forEach(shift => {
+          var event = {
+            id: shift._id,
+            date: shift.data.shiftDate,
+            color: 'card-success card-inverse',
+            title: shift.data.station
+          };
+          self.events.push(event);
+        });
+      })
+    }
+  },
   mounted() {
-    let me = this
-    setTimeout(function() {
-      me.events = [
-        // you can make ajax call here
-        {
-          id: 1,
-          title: 'Event 1',
-          color: 'card-danger card-inverse',
-          description: 'Some fancy details for the event',
-          date: new Date()
-        },
-        {
-          id: 2,
-          title: 'Event blaa on same day!',
-          color: 'card-default',
-          description: 'Please bring some donouts',
-          date: new Date()
-        },
-        {
-          id: 3,
-          title: 'Event 2',
-          color: 'card-primary card-inverse',
-          description: "Don't forget about this!",
-          date: new Date(new Date().setHours(new Date().getHours() + 2 * 24)) // add 2 days
-        },
-        {
-          id: 4,
-          title: 'Event 3',
-          color: 'card-success card-inverse',
-          description: 'Feel free to bring anyone with you',
-          date: new Date(new Date().setHours(new Date().getHours() + 5 * 24)) // add 5 days
-        },
-        {
-          id: 5,
-          title: 'Event 4',
-          color: 'card-warning card-inverse',
-          description: 'Laptop required',
-          date: new Date(new Date().setHours(new Date().getHours() + 14 * 24)) // add 2 weeks
-        },
-        {
-          id: 6,
-          title: 'Event 5',
-          color: 'card-success card-inverse',
-          date: new Date(new Date().setHours(new Date().getHours() + 30 * 24)) // add 1 month
-        }
-      ]
-    }, 1000)
+// Create dates to pass to api.
+    this.$root.$on(CHANGE_MONTH, (newMonth) => {
+      this.getMonthShifts(newMonth);
+    })
+  },
+  created () {
+    this.getMonthShifts(moment().startOf('month'));
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div class="section">
     <div class="container">
-      <h1>Events</h1>
-      <formio src="https://nutmvrwoblsalot.form.io/event"></formio>
+      <h1>Add Volunteer</h1>
+      <formio src="https://nutmvrwoblsalot.form.io/volunteer"></formio>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
   import { Formio } from "vue-formio";
 
   export default {
-    name: "Event",
+    name: "Volunteer",
     components: {
       formio: Formio
     }

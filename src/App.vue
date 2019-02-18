@@ -10,10 +10,23 @@
         </button>
       </div>
 
+
+
       <div class="navbar-end">
         <router-link to="/" class="navbar-item r-item">Home</router-link>
         <router-link to="shifts" class="navbar-item r-item">Duty Shifts</router-link>
-        <router-link to="events" class="navbar-item r-item">Special Events</router-link>
+        <div class="navbar-item has-dropdown is-hoverable r-item">
+          <a class="navbar-link r-item">
+            Add Content
+          </a>
+          <div class="navbar-dropdown">
+            <router-link to="add-shifts" class="navbar-item">Shift</router-link>
+            <router-link to="events" class="navbar-item">Special Events</router-link>
+            <router-link to="volunteer" class="navbar-item">Volunteer</router-link>
+          </div>
+        </div>
+
+        <router-link to="login" class="navbar-item r-item">Login</router-link>
       </div>
     </nav>
     <router-view></router-view>
